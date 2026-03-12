@@ -23,6 +23,14 @@ export const subscriptionPlans = [
   { id: "enterprise", name: "Enterprise", price: 4999, features: ["Unlimited members", "Unlimited staff", "API access", "Dedicated support", "White-label", "Custom integrations"], popular: false },
 ];
 
+// Membership duration plans (for trainers to show members) — Monthly, Quarterly, Half-yearly, Annually
+export const membershipPlans = [
+  { id: "monthly", name: "Monthly", duration: "1 month", price: 1500, perMonth: 1500, popular: false },
+  { id: "quarterly", name: "Quarterly", duration: "3 months", price: 3000, perMonth: 1000, popular: true },
+  { id: "halfyearly", name: "Half-yearly", duration: "6 months", price: 6000, perMonth: 1000, popular: false },
+  { id: "annually", name: "Annually", duration: "12 months", price: 12000, perMonth: 1000, popular: false },
+];
+
 export const revenueData = [
   { month: "Jan", revenue: 32000 }, { month: "Feb", revenue: 38000 }, { month: "Mar", revenue: 42000 },
   { month: "Apr", revenue: 45000 }, { month: "May", revenue: 48000 }, { month: "Jun", revenue: 52000 },
@@ -40,12 +48,12 @@ export const gymStats = {
 };
 
 export const gymMembers = [
-  { id: "m1", name: "Amit Patel", email: "amit@gmail.com", phone: "9876543210", plan: "Annual", trainer: "Arjun", status: "active" as const, joinDate: "2025-01-10", expiryDate: "2026-01-10", amountDue: 0 },
-  { id: "m2", name: "Sneha Gupta", email: "sneha@gmail.com", phone: "9876543211", plan: "Monthly", trainer: "Arjun", status: "active" as const, joinDate: "2025-07-01", expiryDate: "2025-08-01", amountDue: 0 },
-  { id: "m3", name: "Rahul Verma", email: "rahul@gmail.com", phone: "9876543212", plan: "Quarterly", trainer: "Pooja", status: "pending" as const, joinDate: "2025-04-15", expiryDate: "2025-07-15", amountDue: 3000 },
-  { id: "m4", name: "Deepa Nair", email: "deepa@gmail.com", phone: "9876543213", plan: "Annual", trainer: "Arjun", status: "active" as const, joinDate: "2025-02-20", expiryDate: "2026-02-20", amountDue: 0 },
-  { id: "m5", name: "Kiran Shah", email: "kiran@gmail.com", phone: "9876543214", plan: "Monthly", trainer: "Pooja", status: "overdue" as const, joinDate: "2025-05-01", expiryDate: "2025-06-01", amountDue: 1500 },
-  { id: "m6", name: "Ravi Kumar", email: "ravi@gmail.com", phone: "9876543215", plan: "Quarterly", trainer: "Arjun", status: "dropped" as const, joinDate: "2025-01-01", expiryDate: "2025-04-01", amountDue: 0 },
+  { id: "m1", name: "Amit Patel", email: "amit@gmail.com", phone: "9876543210", plan: "Annual", trainer: "Arjun", status: "active" as const, joinDate: "2025-01-10", expiryDate: "2026-01-10", totalAmount: 12000, amountDue: 0 },
+  { id: "m2", name: "Sneha Gupta", email: "sneha@gmail.com", phone: "9876543211", plan: "Monthly", trainer: "Arjun", status: "active" as const, joinDate: "2025-07-01", expiryDate: "2025-08-01", totalAmount: 1500, amountDue: 0 },
+  { id: "m3", name: "Rahul Verma", email: "rahul@gmail.com", phone: "9876543212", plan: "Quarterly", trainer: "Pooja", status: "pending" as const, joinDate: "2025-04-15", expiryDate: "2025-07-15", totalAmount: 3000, amountDue: 3000 },
+  { id: "m4", name: "Deepa Nair", email: "deepa@gmail.com", phone: "9876543213", plan: "Annual", trainer: "Arjun", status: "active" as const, joinDate: "2025-02-20", expiryDate: "2026-02-20", totalAmount: 12000, amountDue: 0 },
+  { id: "m5", name: "Kiran Shah", email: "kiran@gmail.com", phone: "9876543214", plan: "Monthly", trainer: "Pooja", status: "overdue" as const, joinDate: "2025-05-01", expiryDate: "2025-06-01", totalAmount: 1500, amountDue: 1500 },
+  { id: "m6", name: "Ravi Kumar", email: "ravi@gmail.com", phone: "9876543215", plan: "Quarterly", trainer: "Arjun", status: "dropped" as const, joinDate: "2025-01-01", expiryDate: "2025-04-01", totalAmount: 3000, amountDue: 0 },
 ];
 
 export const trainers = [

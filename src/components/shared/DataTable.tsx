@@ -14,7 +14,7 @@ interface DataTableProps<T> {
 
 export function DataTable<T extends Record<string, any>>({ columns, data, onRowClick }: DataTableProps<T>) {
   return (
-    <div className="rounded-lg border border-border bg-card shadow-card overflow-hidden">
+    <div className="rounded-lg border border-border bg-card shadow-card overflow-x-auto min-w-0">
       <Table>
         <TableHeader>
           <TableRow className="bg-muted/50 hover:bg-muted/50">

@@ -227,7 +227,7 @@ export default function Clients() {
   };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in min-w-0">
       <PageHeader title="Client Management" description="Manage all registered businesses">
         <Button className="gradient-primary text-primary-foreground hover:opacity-90" onClick={handleAddClient}>+ Add Client</Button>
       </PageHeader>

@@ -1,4 +1,4 @@
-import { Dumbbell, LayoutDashboard, Users, UserCog, CreditCard, Crown, BarChart3, Building2, BedDouble, ClipboardList, LogOut, ChevronDown } from "lucide-react";
+import { Dumbbell, LayoutDashboard, Users, UserCog, CreditCard, Crown, BarChart3, Building2, BedDouble, ClipboardList, LogOut, ChevronDown, Tag } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import type { UserRole } from "@/contexts/AuthContext";
@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard, roles: ["super_admin", "owner", "staff", "member", "tenant"] },
   { title: "Clients", url: "/clients", icon: Building2, roles: ["super_admin"] },
   { title: "Subscriptions", url: "/subscriptions", icon: Crown, roles: ["super_admin", "owner"] },
+  { title: "Plans", url: "/membership-plans", icon: Tag, roles: ["staff"] },
   { title: "Members", url: "/members", icon: Users, roles: ["owner", "staff"] },
   { title: "Trainers", url: "/trainers", icon: Dumbbell, roles: ["owner"] },
   { title: "Tenants", url: "/tenants", icon: Users, roles: ["owner", "staff"] },
@@ -41,9 +42,15 @@ export function AppSidebar() {
 
   const filteredItems = navItems.filter(item => {
     if (!item.roles.includes(user.role)) return false;
+    // Gym owner: no Payments — manage paid/pending/balance in Members
+    if (user.businessType === "gym" && user.role === "owner" && item.title === "Payments") return false;
+    // Trainer (gym staff): no Payments — not required; they see Membership Plans instead
+    if (user.businessType === "gym" && user.role === "staff" && item.title === "Payments") return false;
     // Filter gym-specific items for PG users and vice versa
     if (user.businessType === "pg" && ["Members", "Trainers"].includes(item.title)) return false;
     if (user.businessType === "gym" && ["Tenants", "Rooms", "Managers"].includes(item.title)) return false;
+    // Plans (membership prices) only for gym trainers, not PG managers
+    if (user.businessType === "pg" && item.title === "Plans") return false;
     return true;
   });
 

@@ -1,27 +1,15 @@
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatsCard } from "@/components/shared/StatsCard";
-import { DataTable } from "@/components/shared/DataTable";
-import { StatusBadge } from "@/components/shared/StatusBadge";
-import { gymStats, gymMembers, gymMembershipData } from "@/data/mockData";
+import { useStaff } from "@/contexts/StaffContext";
+import { gymStats, gymMembershipData } from "@/data/mockData";
 import { Users, UserCheck, Clock, UserMinus, DollarSign, Dumbbell } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Button } from "@/components/ui/button";
 
 export default function GymOwnerDashboard() {
-  const columns = [
-    { key: "name", label: "Name" },
-    { key: "plan", label: "Plan" },
-    { key: "trainer", label: "Trainer" },
-    { key: "expiryDate", label: "Expiry" },
-    { key: "amountDue", label: "Due", render: (item: any) => item.amountDue > 0 ? `₹${item.amountDue}` : "—" },
-    { key: "status", label: "Status", render: (item: any) => <StatusBadge status={item.status} /> },
-  ];
-
+  const { trainers } = useStaff();
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Gym Dashboard" description="FitZone Gym — Manage your gym operations">
-        <Button className="gradient-primary text-primary-foreground hover:opacity-90">+ Add Member</Button>
-      </PageHeader>
+      <PageHeader title="Gym Dashboard" description="FitZone Gym — Manage your gym operations" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         <StatsCard title="Total Members" value={gymStats.totalMembers} icon={Users} variant="primary" trend={{ value: 5, label: "this month" }} />
@@ -47,8 +35,31 @@ export default function GymOwnerDashboard() {
         </ResponsiveContainer>
       </div>
 
-      <h3 className="text-lg font-semibold font-display mb-4">Recent Members</h3>
-      <DataTable columns={columns} data={gymMembers} />
+      <h3 className="text-lg font-semibold font-display mb-4">Members per trainer</h3>
+      <div className="rounded-lg border border-border bg-card shadow-card overflow-hidden">
+        <div className="grid gap-0">
+          {trainers.map((t) => (
+            <div
+              key={t.id}
+              className="flex items-center justify-between px-4 py-3 border-b border-border last:border-b-0"
+            >
+              <div className="flex items-center gap-3">
+                <div className="bg-primary/10 rounded-lg p-2">
+                  <Dumbbell className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground">{t.name}</p>
+                  <p className="text-sm text-muted-foreground">{t.specialization}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold font-display text-primary">{t.assignedMembers}</p>
+                <p className="text-xs text-muted-foreground">members assigned</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
